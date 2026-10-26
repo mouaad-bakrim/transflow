@@ -1,0 +1,257 @@
+.primary:disabled,
+.secondary:disabled,
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.successNotice {
+  margin: 18px 0 0;
+  padding: 11px 14px;
+  border: 1px solid #bde2d2;
+  background: #eaf8f2;
+  color: #096846;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.commercialToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 14px 0;
+}
+.commercialToolbar > span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.searchBox {
+  position: relative;
+  width: min(520px, 100%);
+}
+.searchBox svg {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  width: 18px;
+  color: var(--muted);
+}
+.searchBox input {
+  padding-left: 40px;
+  width: 100%;
+}
+.selectionBar > div {
+  display: grid;
+  gap: 3px;
+}
+.selectionBar span {
+  font-size: 12px;
+  color: #795813;
+}
+.rowActions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.rowActions .icon {
+  width: 35px;
+  height: 35px;
+  justify-content: center;
+  border-radius: 8px;
+  background: #edf5f2;
+  color: var(--green);
+}
+.commercialModal {
+  width: min(1050px, 96vw);
+}
+.lineEditor {
+  display: grid;
+  gap: 10px;
+}
+.lineEditorHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lineEditor h3,
+.traceLinks h3 {
+  font-size: 14px;
+  margin: 0;
+}
+.quoteLine {
+  display: grid;
+  grid-template-columns: minmax(230px, 2fr) repeat(3, minmax(110px, 1fr)) 38px;
+  gap: 10px;
+  align-items: end;
+  padding: 12px;
+  background: #f7faf8;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+.quoteLine .icon {
+  height: 42px;
+  justify-content: center;
+}
+.danger {
+  color: #ad3535;
+}
+.quoteFooter,
+.documentBottom {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+.totalsBox {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  overflow: hidden;
+  background: #fff;
+}
+.totalsBox span,
+.totalsBox strong {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.totalsBox strong {
+  border: 0;
+  background: var(--mint);
+  color: var(--green);
+}
+.documentSheet {
+  padding-bottom: 24px;
+}
+.documentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+}
+.documentIdentity {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.documentHeader .rowActions {
+  margin-left: auto;
+  flex: 0 0 auto;
+  gap: 12px;
+}
+.documentHeader .pdfButton {
+  white-space: nowrap;
+}
+.documentSheet > table,
+.documentMeta,
+.documentBottom,
+.documentSheet > .formActions {
+  margin: 20px 26px;
+  width: calc(100% - 52px);
+}
+.documentMeta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.documentMeta span {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.documentMeta b {
+  color: var(--ink);
+  font-size: 13px;
+}
+.traceLinks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.traceLinks h3 {
+  width: 100%;
+}
+.traceLinks button,
+.traceLinks span {
+  border: 1px solid var(--line);
+  background: #f7faf8;
+  color: var(--green);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.confirmModal {
+  width: min(620px, 96vw);
+  padding-bottom: 24px;
+}
+.confirmModal > p,
+.confirmModal > .invoiceRecap,
+.confirmModal > .totalsBox,
+.confirmModal > .formActions {
+  margin-left: 26px;
+  margin-right: 26px;
+}
+.invoiceRecap {
+  display: grid;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+.invoiceRecap > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.invoiceRecap > div:last-child {
+  border: 0;
+}
+@media (max-width: 900px) {
+  .quoteLine {
+    grid-template-columns: 1fr 1fr;
+  }
+  .quoteLine label:first-child {
+    grid-column: 1/-1;
+  }
+  .quoteFooter,
+  .documentBottom {
+    grid-template-columns: 1fr;
+  }
+  .documentMeta {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media print {
+  aside,
+  .content > header,
+  .pageHead,
+  .workflowSteps,
+  .commercialToolbar,
+  .documentSheet > .formActions,
+  .documentSheet > header .rowActions {
+    display: none !important;
+  }
+  .overlay {
+    position: static;
+    background: #fff;
+    padding: 0;
+  }
+  .modal {
+    box-shadow: none;
+    max-height: none;
+    width: 100%;
+    overflow: visible;
+  }
+  .documentSheet > header {
+    display: flex !important;
+  }
+  .page {
+    padding: 0;
+  }
+}

@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fleettransport}
+      POSTGRES_USER: ${POSTGRES_USER:-fleettransport}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-fleettransport} -d ${POSTGRES_DB:-fleettransport}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  backend:
+    build: ./backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://fleettransport:change-me@db:5432/fleettransport}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-development-key}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-1}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000}
+    command: sh -c "python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+    volumes: ["./backend:/app"]
+    ports: ["8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000/api/v1}
+    ports: ["3000:3000"]
+    depends_on: [backend]
+volumes:
+  postgres_data:
